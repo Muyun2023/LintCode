@@ -2,6 +2,7 @@
  * Given a string s with letter a-z, 
  * can only change to the letter before,like z can change to y, b can change to a...
  * try to calculate the min steps of changing s to a palindrome
+ * a,b,c,d,,,,x,y,z, 后一个字母可以换成前一个，b可以换成a；给一个字串，看把他变成回文子串，最少需要变几次字母就行
  */
 public class Decrease_For_Palindrome {
     public int numOfOperations(String s){
@@ -14,3 +15,6 @@ public class Decrease_For_Palindrome {
     }
     
 }
+
+//回文串特性：双指针看两个字母是否相同，不同就把里面一个变变变；累加次数到遍历结束
+//变几次其实就是ACII码之差
