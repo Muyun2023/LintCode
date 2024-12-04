@@ -8,6 +8,17 @@
  * 这个过程中需要统计的两个变量：
  * 最后一个字母出现的次数
  * 合法子串最大历史长度
+ * 
+ * 发散：
+ * 1. 如果字母不仅仅是a,b,什么都有怎么办？没变化，一样的解法
+ * 2. 如果不能连续出现K个怎么办？把3变成k外还有其他注意点：
+ * if(endDupCount==k){ 
+                    start=end-(k-2); //需要画图才能看懂
+                    endDupCount=k-1; //此时最后一位字母出现k-1次
+                }
+    a,b,b,b,b,...,b,b
+    s               e
+        s
  */
 public class Longest_Semi_Alternating_Sunstring {
     public int LongestSemiAlternatingSunstring(String s){
