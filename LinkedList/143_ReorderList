@@ -1,0 +1,57 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head==null||head.next==null){return;}
+
+        //通过快慢指针找中点的方法，慢指针最后会指向中点：奇数节点的正中间，偶数节点的中位线后一个节点
+        ListNode fast=head,slow=head;
+        while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+
+        //翻转链表后半部分，记录为第二段链表
+        ListNode second=reverseList(slow); //第二段链表
+        ListNode first=head; //第一段链表
+        ListNode tmp;
+
+        /**这里有个难点：
+        就是快慢指针找到中断点后，链表并不是真的中断；
+        即使在翻转后半段链表，原链表也没有真的中断；
+        1->2->3 null<-4<-5<-6
+        但是3依然->4的
+        */
+
+        //merge两段链表
+        while(second.next!=null){
+            tmp=first.next;//记录下head的next节点
+            first.next=second;
+            first=tmp;
+
+            tmp=second.next;
+            second.next=first;
+            second=tmp;
+        }
+    }
+
+    //翻转单向链表
+    public ListNode reverseList(ListNode head){ 
+        ListNode pre=null,cur=head,tmp;
+        while(cur!=null){
+            tmp=cur.next; //临时记录的head/cur的下一个节点
+            cur.next=pre; // 翻转cur，指向pre/上一个节点
+            pre=cur;//pre移动到下一个节点
+            cur=tmp;//cur移动到下一个节点
+        }
+        return pre;
+    }
+}
